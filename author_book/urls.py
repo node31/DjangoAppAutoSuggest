@@ -1,0 +1,9 @@
+from django.conf.urls import url, patterns
+
+from author_book import views
+
+urlpatterns = patterns('',
+		url(r'^$',views.index,name = 'index'),
+		url(r'^ajax_call/',views.ajax_call,name = 'ajax_call'),
+		url(r'^ab_show/(?P<ab_id>\d+)/$',views.ab_show,name = 'ab_show'),
+	)

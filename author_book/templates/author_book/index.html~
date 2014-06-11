@@ -1,0 +1,72 @@
+<h1>INDEX PAGE</h1>
+
+{% block head %}
+<script type = "text/javascript" src = "/static/author_book/js/jquery.js"></script>
+{% endblock %}
+<!--<script type = "text/javascript" src = "/static/users_app/js/jquery.js"></script>-->
+
+<form method = "GET" name = "autoForm">
+	{% csrf_token %}
+	AB:<input type = "text" name = "ip_ab" id = "ip_ab"/><br>
+	<input type = "button" name = "subButton" id="subButton" value = "Search" />	
+	<label name = "op_ab" id = "op_ab" >ANAJSNUK</label>
+	<div id="op">
+	</div>
+</form>
+
+<!--<script type = "text/javascript">
+$(document).ready(function(){
+	$("#subButton").click(function(){
+		alert("CLICKED");
+		var searchKey = $("#ip_ab").val();
+		$.ajax({			
+			url:"{% url 'ajax_call' %}",
+			type : "GET",
+			dataType : "JSON",
+			data:{
+				sVal:searchKey
+			},
+			success:function(data){
+				alert(data);
+				alert(data.result);
+				$("#op_ab").html(data.result);
+			},
+			failure:function(data){
+				alert('GOT AN ERROR');
+			}
+		});
+		return false;	
+	});
+});
+</script>-->
+
+<script type = "text/javascript">
+$(document).ready(function(){
+	$("#ip_ab").keyup(function(){
+		var searchKey = $("#ip_ab").val();
+		//alert(searchKey);
+		$.ajax({
+			url:"{% url 'ajax_call' %}",
+			type:"GET",
+			dataType:"JSON",
+			data:{
+				sVal:searchKey
+			},
+			success:function(data){				
+				var str = "";
+				//alert(data[0]['author']);
+				for(i=0;i<data.length;i++){
+					str += data[i]['author'] + "\n" 
+				}			
+				$("#op").html(str);
+			},
+			failure:function(data){
+				alert('GOT AN ERROR');
+			}			
+		});
+		return false;
+	});
+});
+</script>
+
+
